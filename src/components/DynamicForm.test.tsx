@@ -1,32 +1,19 @@
-// src/App.test.tsx
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useForm, FormProvider } from 'react-hook-form';
-import DynamicForm from './components/DynamicForm';
+import DynamicForm from './DynamicForm'; // Import your DynamicForm component
+import { FormSchema } from '../types/formSchema'; // Ensure correct path relative to your test file
 
-// Define the types for form schema and fields
-interface FormField {
-  id: string;
-  type: 'text' | 'email' | 'select' | 'textarea'; // Restrict to valid types
-  label: string;
-  required: boolean;
-  placeholder: string;
-  options?: { value: string; label: string }[]; // Only for 'select' fields
-}
-
-interface FormSchema {
-  formTitle: string;
-  formDescription: string;
-  fields: FormField[];
-}
 
 describe('DynamicForm Component', () => {
-  // Corrected mockSchema with correct types
+  // ESLint comment to disable the unused-vars rule for the next line
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockSchema: FormSchema = {
     formTitle: 'Test Form',
     formDescription: 'Fill out the form below',
     fields: [
       { id: 'name', type: 'text', label: 'Name', required: true, placeholder: 'Enter your name' },
+      { id: 'email', type: 'email', label: 'Email', required: true, placeholder: 'Enter your email' },
     ],
   };
 
@@ -39,7 +26,7 @@ describe('DynamicForm Component', () => {
       const methods = useForm();
       return (
         <FormProvider {...methods}>
-          <DynamicForm schema={mockSchema} />
+          <DynamicForm schema={mockSchema} /> {/* Pass mockSchema correctly here */}
         </FormProvider>
       );
     };
